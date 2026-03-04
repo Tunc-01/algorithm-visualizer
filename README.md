@@ -7,7 +7,7 @@ A Python project that demonstrates core Data Structures & Algorithms by visualiz
 ### Sorting Visualizer (Matplotlib)
 - Bubble Sort
 - Merge Sort
-- (Optional later: Quick Sort)
+- Quick Sort
 - Animated bar-chart visualization
 
 ### Graph Algorithms (Console Steps)
@@ -25,11 +25,7 @@ A Python project that demonstrates core Data Structures & Algorithms by visualiz
 - Python 3.x
 - matplotlib
 
-Install:
+## Install
 ```bash
 pip install -r requirements.txt
 python main.py
-
-Commit message:
-```text
-Improve README

@@ -13,13 +13,6 @@ def bubble_sort(arr):
                 yield arr
 
 
-def quick_sort(arr, low, high):
-    if low < high:
-        pivot = partition(arr, low, high)
-        yield from quick_sort(arr, low, pivot - 1)
-        yield from quick_sort(arr, pivot + 1, high)
-
-
 def partition(arr, low, high):
     pivot = arr[high]
     i = low - 1
@@ -33,9 +26,15 @@ def partition(arr, low, high):
     return i + 1
 
 
+def quick_sort(arr, low, high):
+    if low < high:
+        pivot = partition(arr, low, high)
+        yield from quick_sort(arr, low, pivot - 1)
+        yield from quick_sort(arr, pivot + 1, high)
+
+
 def merge_sort(arr):
     if len(arr) > 1:
-
         mid = len(arr) // 2
         L = arr[:mid]
         R = arr[mid:]
@@ -69,40 +68,47 @@ def merge_sort(arr):
 
 
 def visualize_sorting(algorithm):
-
     array = [random.randint(1, 100) for _ in range(30)]
-
     generator = algorithm(array)
 
     fig, ax = plt.subplots()
     bars = ax.bar(range(len(array)), array)
-
     ax.set_title("Sorting Algorithm Visualization")
 
-    def update(frame):
-
+    def update(_):
         for rect, val in zip(bars, array):
             rect.set_height(val)
 
-    anim = FuncAnimation(fig, update, frames=generator, repeat=False)
-
+    FuncAnimation(fig, update, frames=generator, repeat=False, interval=50)
     plt.show()
 
 
 def main():
-
     print("Sorting Algorithm Visualizer")
     print("1 - Bubble Sort")
     print("2 - Merge Sort")
+    print("3 - Quick Sort")
 
-    choice = input("Select algorithm: ")
+    choice = input("Select algorithm: ").strip()
 
     if choice == "1":
         visualize_sorting(bubble_sort)
-
     elif choice == "2":
         visualize_sorting(merge_sort)
+    elif choice == "3":
+        arr = [random.randint(1, 100) for _ in range(30)]
+        gen = quick_sort(arr, 0, len(arr) - 1)
 
+        fig, ax = plt.subplots()
+        bars = ax.bar(range(len(arr)), arr)
+        ax.set_title("Quick Sort Visualization")
+
+        def update(_):
+            for rect, val in zip(bars, arr):
+                rect.set_height(val)
+
+        FuncAnimation(fig, update, frames=gen, repeat=False, interval=50)
+        plt.show()
     else:
         print("Invalid choice")
 

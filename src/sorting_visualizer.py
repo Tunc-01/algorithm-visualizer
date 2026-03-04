@@ -67,13 +67,12 @@ def merge_sort(arr):
             yield arr
 
 
-def visualize_sorting(algorithm):
-    array = [random.randint(1, 100) for _ in range(30)]
-    generator = algorithm(array)
-
+def visualize_sorting(generator, array):
     fig, ax = plt.subplots()
     bars = ax.bar(range(len(array)), array)
     ax.set_title("Sorting Algorithm Visualization")
+    ax.set_xlabel("Index")
+    ax.set_ylabel("Value")
 
     def update(_):
         for rect, val in zip(bars, array):
@@ -90,25 +89,17 @@ def main():
     print("3 - Quick Sort")
 
     choice = input("Select algorithm: ").strip()
+    array = [random.randint(1, 100) for _ in range(30)]
 
     if choice == "1":
-        visualize_sorting(bubble_sort)
+        gen = bubble_sort(array)
+        visualize_sorting(gen, array)
     elif choice == "2":
-        visualize_sorting(merge_sort)
+        gen = merge_sort(array)
+        visualize_sorting(gen, array)
     elif choice == "3":
-        arr = [random.randint(1, 100) for _ in range(30)]
-        gen = quick_sort(arr, 0, len(arr) - 1)
-
-        fig, ax = plt.subplots()
-        bars = ax.bar(range(len(arr)), arr)
-        ax.set_title("Quick Sort Visualization")
-
-        def update(_):
-            for rect, val in zip(bars, arr):
-                rect.set_height(val)
-
-        FuncAnimation(fig, update, frames=gen, repeat=False, interval=50)
-        plt.show()
+        gen = quick_sort(array, 0, len(array) - 1)
+        visualize_sorting(gen, array)
     else:
         print("Invalid choice")
 

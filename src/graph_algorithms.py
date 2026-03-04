@@ -49,7 +49,6 @@ def dfs_steps(graph: Graph, start: str) -> List[VisitStep]:
         visited.add(node)
 
         neighbors = [n for (n, _) in graph.get(node, [])]
-        # reverse for stable order
         for n in reversed(neighbors):
             if n not in visited and n not in stack:
                 stack.append(n)
